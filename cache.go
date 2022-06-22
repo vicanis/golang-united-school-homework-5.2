@@ -54,10 +54,13 @@ func (c *Cache) Get(key string) (string, bool) {
 }
 
 func (c *Cache) Set(key, value string, deadline *time.Time) {
-	for _, v := range c.values {
+	for i, v := range c.values {
 		if v.key == key {
 			v.value = value
 			v.deadline = deadline
+
+			c.values[i] = v
+
 			return
 		}
 	}
